@@ -10,8 +10,7 @@ class CityDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String baseUrl =
-        requestUrl.startsWith('//') ? "https:$requestUrl" : requestUrl;
+    // final String baseUrl = requestUrl.startsWith('//') ? "https:$requestUrl" : requestUrl;
     return Scaffold(
       body: Container(
         width: double.infinity,
