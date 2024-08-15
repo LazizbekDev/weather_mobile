@@ -46,6 +46,7 @@ class _SearchState extends State<Search> {
             FutureBuilder<void>(
               future: Provider.of<WeatherProvider>(context, listen: false)
                   .fetchWeather(
+                countryWeather: false,
                 'https://world-weather.ru/pogoda/',
                 '.countres',
                 '.country-block',
@@ -71,13 +72,14 @@ class _SearchState extends State<Search> {
                           final weather = weatherList[index];
                           return ListTile(
                             title: ListItems(
-                              text: weather.cityName,
+                              text: weather.countryName ?? "No country found",
                               onClick: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (BuildContext context) {
                                       return CityWeather(
-                                        requestUrl: weather.url,
+                                        requestUrl: weather.url ??
+                                            "No URL for this country",
                                       );
                                     },
                                   ),

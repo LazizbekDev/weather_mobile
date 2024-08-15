@@ -6,16 +6,19 @@ import 'package:weather_stable/model/weather_model.dart';
 
 class WeatherProvider with ChangeNotifier {
   final List<Weather> _weatherList = [];
+  final List<Weather> _cityWeather = [];
   bool _isLoading = false;
 
   List<Weather> get weatherList => _weatherList;
+  List<Weather> get cityWeather => _cityWeather;
   bool get isLoading => _isLoading;
 
   Future<void> fetchWeather(
     String url,
     String parentElement,
-    String listElement,
-  ) async {
+    String listElement, {
+    bool countryWeather = true,
+  }) async {
     _isLoading = true;
     notifyListeners();
 
@@ -32,16 +35,25 @@ class WeatherProvider with ChangeNotifier {
         for (dynamic list in handle) {
           final a = list.querySelector('a');
 
-          final weather = Weather(
-            cityName: a?.innerHtml,
-            temperature: list.querySelector('span')?.text,
-            url: a?.attributes['href'],
-            countriesList: a?.text,
-            countryTemperature: list.querySelector('span')?.text,
-          );
-          // print(a?.innerHtml);
+          if (!countryWeather) {
+            final weather = Weather(
+              countryName: a?.innerHtml,
+              temperature: list.querySelector('span')?.text,
+              url: a?.attributes['href'],
+              citiesList: a?.text,
+            );
 
-          _weatherList.add(weather);
+            _weatherList.add(weather);
+          } else {
+            final cityList = Weather(
+              url: a?.attributes['href'],
+              countryName: a?.innerHtml,
+              temperature: list.querySelector('span')?.text,
+              citiesList: a?.text,
+            );
+
+            _cityWeather.add(cityList);
+          }
         }
       }
     } else {

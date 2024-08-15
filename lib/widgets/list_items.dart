@@ -4,11 +4,13 @@ import 'package:weather_stable/utilities/app_colors.dart';
 
 class ListItems extends StatelessWidget {
   final String text;
+  final String celsius;
   final Function() onClick;
-  
+
   const ListItems({
     super.key,
     this.text = "No country found!",
+    this.celsius = "",
     required this.onClick,
   });
 
@@ -25,10 +27,17 @@ class ListItems extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 23),
       onPressed: onClick,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: celsius != "" ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
         children: <Widget>[
           Text(
             text,
+            style: GoogleFonts.inter(
+              fontWeight: FontWeight.w600,
+              color: AppColors.gray,
+            ),
+          ),
+          Text(
+            celsius,
             style: GoogleFonts.inter(
               fontWeight: FontWeight.w600,
               color: AppColors.gray,

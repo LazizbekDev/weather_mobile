@@ -24,17 +24,15 @@ class CountryInfo {
 }
 
 class Weather {
-  final String url;
-  final String cityName;
+  final String? url;
+  final String? countryName;
   final String? temperature;
-  final String? countriesList;
-  final String? countryTemperature;
+  final String? citiesList;
 
   Weather({
     required this.url,
-    required this.cityName,
+    required this.countryName,
     required this.temperature,
-    required this.countriesList,
-    required this.countryTemperature,
+    required this.citiesList,
   });
 }
