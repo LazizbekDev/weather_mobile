@@ -4,7 +4,13 @@ import 'package:weather_stable/utilities/app_colors.dart';
 
 class ListItems extends StatelessWidget {
   final String text;
-  const ListItems({super.key, this.text = "No country found!"});
+  final Function() onClick;
+  
+  const ListItems({
+    super.key,
+    this.text = "No country found!",
+    required this.onClick,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +23,7 @@ class ListItems extends StatelessWidget {
       elevation: 0,
       highlightElevation: 0,
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 23),
-      onPressed: () {},
+      onPressed: onClick,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[

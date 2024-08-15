@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:weather_stable/screens/city_weather.dart';
+// import 'package:weather_stable/model/weather_model.dart';
 import 'package:weather_stable/utilities/gradient.dart';
-import 'package:weather_stable/widgets/Input.dart';
+import 'package:weather_stable/utilities/weather_provider.dart';
+import 'package:weather_stable/widgets/input.dart';
 import 'package:weather_stable/widgets/list_items.dart';
 
 class Search extends StatefulWidget {
@@ -12,6 +15,8 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
+  // final TextEditingController _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +43,55 @@ class _SearchState extends State<Search> {
             const SizedBox(
               height: 30,
             ),
-            const ListItems()
+            FutureBuilder<void>(
+              future: Provider.of<WeatherProvider>(context, listen: false)
+                  .fetchWeather(
+                'https://world-weather.ru/pogoda/',
+                '.countres',
+                '.country-block',
+              ),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  final weatherList =
+                      Provider.of<WeatherProvider>(context).weatherList;
+
+                  if (weatherList.isEmpty) {
+                    return ListItems(
+                      onClick: () {},
+                    );
+                  } else {
+                    return Expanded(
+                      child: ListView.builder(
+                        itemCount: weatherList.length,
+                        itemBuilder: (context, index) {
+                          final weather = weatherList[index];
+                          return ListTile(
+                            title: ListItems(
+                              text: weather.cityName,
+                              onClick: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) {
+                                      return CityWeather(
+                                        requestUrl: weather.url,
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }
+                }
+              },
+            ),
           ],
         ),
       ),

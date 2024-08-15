@@ -22,3 +22,19 @@ class CountryInfo {
     return 'CountryInfo{name: $name, url: $url}';
   }
 }
+
+class Weather {
+  final String url;
+  final String cityName;
+  final String? temperature;
+  final String? countriesList;
+  final String? countryTemperature;
+
+  Weather({
+    required this.url,
+    required this.cityName,
+    required this.temperature,
+    required this.countriesList,
+    required this.countryTemperature,
+  });
+}
