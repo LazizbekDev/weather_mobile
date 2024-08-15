@@ -24,48 +24,57 @@ class _SearchState extends State<Search> {
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 25),
         decoration: gradient(),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 100,
-            ),
-            Container(
-              decoration: BoxDecoration(boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
-                  spreadRadius: 0,
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
+        child: FutureBuilder<void>(
+          future:
+              Provider.of<WeatherProvider>(context, listen: false).fetchWeather(
+            countryWeather: false,
+            'https://world-weather.ru/pogoda/',
+            '.countres',
+            '.country-block',
+          ),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text(
+                  'Error: ${snapshot.error}',
+                  style: TextStyle(
+                    color: Colors.red[400]
+                  ),
                 ),
-              ]),
-              child: const Input(),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            FutureBuilder<void>(
-              future: Provider.of<WeatherProvider>(context, listen: false)
-                  .fetchWeather(
-                countryWeather: false,
-                'https://world-weather.ru/pogoda/',
-                '.countres',
-                '.country-block',
-              ),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  final weatherList =
-                      Provider.of<WeatherProvider>(context).weatherList;
+              );
+            } else {
+              final weatherList =
+                  Provider.of<WeatherProvider>(context).weatherList;
 
-                  if (weatherList.isEmpty) {
-                    return ListItems(
-                      onClick: () {},
-                    );
-                  } else {
-                    return Expanded(
+              if (weatherList.isEmpty) {
+                return ListItems(
+                  onClick: () {},
+                );
+              } else {
+                return Column(
+                  children: [
+                    const SizedBox(
+                      height: 100,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          spreadRadius: 0,
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ]),
+                      child: const Input(),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Expanded(
                       child: ListView.builder(
                         itemCount: weatherList.length,
                         itemBuilder: (context, index) {
@@ -89,12 +98,12 @@ class _SearchState extends State<Search> {
                           );
                         },
                       ),
-                    );
-                  }
-                }
-              },
-            ),
-          ],
+                    )
+                  ],
+                );
+              }
+            }
+          },
         ),
       ),
     );

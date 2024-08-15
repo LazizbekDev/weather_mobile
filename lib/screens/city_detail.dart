@@ -7,6 +7,8 @@ class CityDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String baseUrl =
+        requestUrl.startsWith('//') ? "https:$requestUrl" : requestUrl;
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -17,7 +19,7 @@ class CityDetail extends StatelessWidget {
             const SizedBox(
               height: 100,
             ),
-            Text(requestUrl),
+            Text(baseUrl),
           ],
         ),
       ),
