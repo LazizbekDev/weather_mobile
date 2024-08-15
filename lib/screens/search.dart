@@ -6,6 +6,7 @@ import 'package:weather_stable/utilities/gradient.dart';
 import 'package:weather_stable/utilities/weather_provider.dart';
 import 'package:weather_stable/widgets/input.dart';
 import 'package:weather_stable/widgets/list_items.dart';
+import 'package:weather_stable/widgets/navbar.dart';
 
 class Search extends StatefulWidget {
   const Search({super.key});
@@ -41,9 +42,7 @@ class _SearchState extends State<Search> {
               return Center(
                 child: Text(
                   'Error: ${snapshot.error}',
-                  style: TextStyle(
-                    color: Colors.red[400]
-                  ),
+                  style: TextStyle(color: Colors.red[400]),
                 ),
               );
             } else {
@@ -55,51 +54,58 @@ class _SearchState extends State<Search> {
                   onClick: () {},
                 );
               } else {
-                return Column(
-                  children: [
-                    const SizedBox(
-                      height: 100,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          spreadRadius: 0,
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
-                        ),
-                      ]),
-                      child: const Input(),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: weatherList.length,
-                        itemBuilder: (context, index) {
-                          final weather = weatherList[index];
-                          return ListTile(
-                            title: ListItems(
-                              text: weather.countryName ?? "No country found",
-                              onClick: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) {
-                                      return CityWeather(
-                                        requestUrl: weather.url ??
-                                            "No URL for this country",
-                                      );
-                                    },
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        },
+                return SafeArea(
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 20,
                       ),
-                    )
-                  ],
+                      const Navbar(text: "Search"),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 0,
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                        ]),
+                        child: const Input(),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: weatherList.length,
+                          itemBuilder: (context, index) {
+                            final weather = weatherList[index];
+                            return ListTile(
+                              title: ListItems(
+                                text: weather.countryName ?? "No country found",
+                                onClick: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                        return CityWeather(
+                                          requestUrl: weather.url ??
+                                              "No URL for this country",
+                                              countryName: weather.countryName ?? "Unknown country"
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                      )
+                    ],
+                  ),
                 );
               }
             }
