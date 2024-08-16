@@ -18,6 +18,7 @@ class WeatherProvider with ChangeNotifier {
     String parentElement,
     String listElement, {
     bool countryWeather = true,
+    bool detailed = false,
   }) async {
     _isLoading = true;
     notifyListeners();
@@ -32,7 +33,7 @@ class WeatherProvider with ChangeNotifier {
       for (dynamic element in elements) {
         final handle = element.querySelectorAll(listElement);
 
-        for (dynamic list in handle) {
+        for (dynamic list  in handle) {
           final a = list.querySelector('a');
 
           if (!countryWeather) {
