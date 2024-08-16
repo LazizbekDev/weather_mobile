@@ -30,6 +30,7 @@ class CityWeather extends StatelessWidget {
             '.cities',
             '.city-block',
             countryWeather: true,
+            detailed: false,
           ),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -37,7 +38,12 @@ class CityWeather extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
+              return Center(
+                child: Text(
+                  'Error: ${snapshot.error}',
+                  style: TextStyle(color: Colors.red[400]),
+                ),
+              );
             } else {
               final cityList =
                   Provider.of<WeatherProvider>(context).cityWeather;
@@ -82,6 +88,8 @@ class CityWeather extends StatelessWidget {
                                       return CityDetail(
                                         requestUrl: weather.url ??
                                             "No URL for this country",
+                                            cityName: weather.citiesList ?? "Unknown",
+                              celsius: weather.temperature ?? ""
                                       );
                                     },
                                   ),

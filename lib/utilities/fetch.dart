@@ -3,7 +3,7 @@ import "package:html/parser.dart";
 import "package:weather_stable/model/weather_model.dart";
 
 Future<List> fetchData<T>(
-    String url, String parentElement, String listElement) async {
+    String url, String parentElement, String listElement, {required bool countryWeather, required bool detailed}) async {
   try {
     final res = await http.get(Uri.parse(url));
 

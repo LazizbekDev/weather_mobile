@@ -29,6 +29,7 @@ class _SearchState extends State<Search> {
           future:
               Provider.of<WeatherProvider>(context, listen: false).fetchWeather(
             countryWeather: false,
+            detailed: false,
             'https://world-weather.ru/pogoda/',
             '.countres',
             '.country-block',

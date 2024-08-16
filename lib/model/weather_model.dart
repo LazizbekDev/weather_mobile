@@ -28,11 +28,19 @@ class Weather {
   final String? countryName;
   final String? temperature;
   final String? citiesList;
+  final String? rainFall;
+  final String? wind;
+  final String? humidity;
+  final List? dates;
 
   Weather({
     required this.url,
     required this.countryName,
     required this.temperature,
     required this.citiesList,
+    this.rainFall,
+    this.wind,
+    this.humidity,
+    this.dates,
   });
 }
