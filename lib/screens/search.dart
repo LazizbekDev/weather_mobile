@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_stable/screens/city_weather.dart';
-// import 'package:weather_stable/model/weather_model.dart';
 import 'package:weather_stable/utilities/gradient.dart';
 import 'package:weather_stable/utilities/weather_provider.dart';
 import 'package:weather_stable/widgets/input.dart';
@@ -16,7 +15,7 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  // final TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +52,10 @@ class _SearchState extends State<Search> {
                   Provider.of<WeatherProvider>(context).weatherList;
 
               if (weatherList.isEmpty) {
-                return ListItems(
-                  onClick: () {},
+                return Center(
+                  child: ListItems(
+                    onClick: () {},
+                  ),
                 );
               } else {
                 return SafeArea(
@@ -68,16 +69,22 @@ class _SearchState extends State<Search> {
                         height: 30,
                       ),
                       Container(
-                        decoration: BoxDecoration(boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            spreadRadius: 0,
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          ),
-                        ]),
-                        child: const Input(),
-                      ),
+                          decoration: BoxDecoration(boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.2),
+                              spreadRadius: 0,
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ]),
+                          child: Input(
+                            controller: _controller,
+                            onChange: (query) {
+                              Provider.of<WeatherProvider>(context,
+                                      listen: false)
+                                  .filterCountries(query);
+                            },
+                          )),
                       const SizedBox(
                         height: 30,
                       ),
@@ -98,7 +105,8 @@ class _SearchState extends State<Search> {
                                         return CityWeather(
                                           requestUrl: weather.url ??
                                               "No URL for this country",
-                                              countryName: weather.countryName ?? "Unknown country"
+                                          countryName: weather.countryName ??
+                                              "Unknown country",
                                         );
                                       },
                                     ),

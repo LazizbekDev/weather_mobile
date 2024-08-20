@@ -7,7 +7,7 @@ import 'package:weather_stable/widgets/input.dart';
 import 'package:weather_stable/widgets/list_items.dart';
 import 'package:weather_stable/widgets/navbar.dart';
 
-class CityWeather extends StatelessWidget {
+class CityWeather extends StatefulWidget {
   const CityWeather({
     super.key,
     required this.requestUrl,
@@ -16,6 +16,12 @@ class CityWeather extends StatelessWidget {
   final String requestUrl;
   final String countryName;
 
+  @override
+  State<CityWeather> createState() => _CityWeatherState();
+}
+
+class _CityWeatherState extends State<CityWeather> {
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +32,7 @@ class CityWeather extends StatelessWidget {
         child: FutureBuilder<void>(
           future:
               Provider.of<WeatherProvider>(context, listen: false).fetchWeather(
-            requestUrl,
+            widget.requestUrl,
             '.cities',
             '.city-block',
             countryWeather: true,
@@ -56,7 +62,7 @@ class CityWeather extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    Navbar(text: countryName),
+                    Navbar(text: widget.countryName),
                     const SizedBox(
                       height: 30,
                     ),
@@ -69,7 +75,13 @@ class CityWeather extends StatelessWidget {
                           offset: const Offset(0, 4),
                         ),
                       ]),
-                      child: const Input(),
+                      child: Input(
+                        controller: _controller,
+                        onChange: (query) {
+                          Provider.of<WeatherProvider>(context, listen: false)
+                              .filterCities(query);
+                        },
+                      ),
                     ),
                     const SizedBox(
                       height: 30,
