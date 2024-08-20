@@ -85,8 +85,10 @@ class _SearchState extends State<Search> {
                           itemBuilder: (context, index) {
                             final weather = weatherList[index];
                             return ListTile(
+                              contentPadding: EdgeInsets.zero,
                               title: ListItems(
                                 text: weather.countryName ?? "No country found",
+                                height: 70,
                                 onClick: () {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(

@@ -7,6 +7,7 @@ class ListItems extends StatelessWidget {
   final String celsius;
   final String src;
   final double width;
+  final double height;
   final Function() onClick;
 
   const ListItems({
@@ -15,6 +16,7 @@ class ListItems extends StatelessWidget {
     this.celsius = "",
     this.src = "",
     this.width = 40,
+    this.height = 40,
     required this.onClick,
   });
 
@@ -22,7 +24,7 @@ class ListItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialButton(
       minWidth: double.infinity,
-      height: 40,
+      height: height,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(18),
       ),

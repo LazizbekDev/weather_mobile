@@ -78,9 +78,11 @@ class CityWeather extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final weather = cityList[index];
                           return ListTile(
+                            contentPadding: EdgeInsets.zero,
                             title: ListItems(
                               text: weather.citiesList ?? "No country found",
                               celsius: weather.temperature ?? "",
+                              height: 70,
                               onClick: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
@@ -88,8 +90,9 @@ class CityWeather extends StatelessWidget {
                                       return CityDetail(
                                         requestUrl: weather.url ??
                                             "No URL for this country",
-                                            cityName: weather.citiesList ?? "Unknown",
-                              celsius: weather.temperature ?? ""
+                                        cityName:
+                                            weather.citiesList ?? "Unknown",
+                                        celsius: weather.temperature ?? "",
                                       );
                                     },
                                   ),
