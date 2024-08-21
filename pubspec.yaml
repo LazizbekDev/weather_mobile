@@ -9,9 +9,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  geocoding: ^3.0.0
   google_fonts: ^6.2.1
   html: ^0.15.4
   http: ^1.2.2
+  location: ^6.0.2
   lottie: ^3.1.2
   provider: ^6.1.2
 
