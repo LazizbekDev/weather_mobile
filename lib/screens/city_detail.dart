@@ -122,7 +122,7 @@ class _CityDetailState extends State<CityDetail>
                       ],
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 20,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -158,7 +158,7 @@ class _CityDetailState extends State<CityDetail>
                       ],
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 20,
                     ),
                     ListItems(
                       onClick: () {},
@@ -188,7 +188,7 @@ class _CityDetailState extends State<CityDetail>
                       celsius: detail[0].humidity.toString(),
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 20,
                     ),
                     PreferredSize(
                       preferredSize: const Size.fromHeight(50),

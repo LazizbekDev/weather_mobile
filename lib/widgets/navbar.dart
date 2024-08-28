@@ -21,7 +21,11 @@ class Navbar extends StatelessWidget {
           },
           icon: const Icon(Icons.arrow_back),
         ),
-        Text(
+        SizedBox(
+          width: MediaQuery.of(context).size.width / 2,
+          child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Text(
           text,
           style: GoogleFonts.inter(
             fontSize: 20,
@@ -29,6 +33,8 @@ class Navbar extends StatelessWidget {
             fontWeight: FontWeight.w400,
           ),
           textAlign: TextAlign.center,
+        ),
+        ),
         ),
         const SizedBox(
           width: 50,
