@@ -77,17 +77,18 @@ class WeatherProvider with ChangeNotifier {
         final document = parse(response.body);
         final body = document.querySelectorAll('.weather-short');
         final today = body[0].querySelectorAll('table tr');
+        print(today);
         final allDates = document.querySelectorAll(".dates");
         final details = Weather(
-          url: 'url',
-          countryName: 'countryName',
-          temperature: 'temperature',
-          citiesList: 'citiesList',
-          rainFall: today[0].nodes[4].text,
-          wind: today[0].nodes[5].text,
-          humidity: today[0].nodes[6].text,
-          dates: allDates,
-        );
+            url: 'url',
+            countryName: 'countryName',
+            temperature: 'temperature',
+            citiesList: 'citiesList',
+            rainFall: today[0].nodes[4].text,
+            wind: today[0].nodes[5].text,
+            humidity: today[0].nodes[6].text,
+            dates: allDates,
+            week: body[0].querySelectorAll('table tr'),);
         _detailed.add(details);
       }
     }

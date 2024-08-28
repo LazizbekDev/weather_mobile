@@ -32,6 +32,7 @@ class Weather {
   final String? wind;
   final String? humidity;
   final List? dates;
+  final List? week;
 
   Weather({
     required this.url,
@@ -42,5 +43,6 @@ class Weather {
     this.wind,
     this.humidity,
     this.dates,
+    this.week,
   });
 }

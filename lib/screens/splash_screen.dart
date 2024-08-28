@@ -95,6 +95,16 @@ class SplashScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (BuildContext context) {
+                  return const Search();
+                }),
+              );
+            },
+            child: const Text("Continue manually"),
+          )
         ],
       ),
     );

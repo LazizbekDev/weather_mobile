@@ -9,5 +9,5 @@ void main() {
       create: (context) => WeatherProvider(),
       child: const Home(),
     ),
-  );
+  ); 
 }

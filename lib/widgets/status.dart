@@ -31,7 +31,7 @@ class Status extends StatelessWidget {
       onPressed: () {},
       child: SizedBox(
         width: 32,
-        height: 56,
+        height: 62,
         child: Column(
           children: [
             Text(
